@@ -6,7 +6,7 @@
  * @since Grey Opaque 1.0.3.5
  */
 class greyopaque_array {
-	function get($array, $key, $default = null) {
+	static function get($array, $key, $default = null) {
 		return (isset($array[$key])) ? $array[$key] : $default;
 	}
 }
@@ -24,37 +24,37 @@ class greyopaque_browser {
 	public static $version = false;
 	public static $platform = false;
 
-	function name($ua = null) {
+	static function name($ua = null) {
 		self::detect($ua);
 
 		return self::$browser;
 	}
 
-	function engine($ua = null) {
+	static function engine($ua = null) {
 		self::detect($ua);
 
 		return self::$engine;
 	}
 
-	function version($ua = null) {
+	static function version($ua = null) {
 		self::detect($ua);
 
 		return self::$version;
 	}
 
-	function platform($ua = null) {
+	static function platform($ua = null) {
 		self::detect($ua);
 
 		return self::$platform;
 	}
 
-	function mobile($ua = null) {
+	static function mobile($ua = null) {
 		self::detect($ua);
 
 		return (self::$platform == 'mobile') ? true : false;
 	}
 
-	function iphone($ua = null) {
+	static function iphone($ua = null) {
 		self::detect($ua);
 
 		return (in_array(self::$platform, array(
@@ -63,7 +63,7 @@ class greyopaque_browser {
 		))) ? true : false;
 	}
 
-	function ios($ua = null) {
+	static function ios($ua = null) {
 		self::detect($ua);
 
 		return (in_array(self::$platform, array(
@@ -73,7 +73,7 @@ class greyopaque_browser {
 		))) ? true : false;
 	}
 
-	function css($ua = null, $array = false) {
+	static function css($ua = null, $array = false) {
 		self::detect($ua);
 
 		$css[] = self::$engine;
@@ -88,7 +88,7 @@ class greyopaque_browser {
 		return ($array) ? $css : implode(' ', $css);
 	}
 
-	function detect($ua = null) {
+	static function detect($ua = null) {
 //		$ua = ($ua) ? mb_strtolower($ua, 'utf-8') : mb_strtolower(greyopaque_server::get('http_user_agent'), 'utf-8');
 		$ua = ($ua) ? greyopaque_string::string_to_lower($ua) : greyopaque_string::string_to_lower(greyopaque_server::get('http_user_agent'));
 
@@ -195,7 +195,7 @@ class greyopaque_browser {
  * @since Grey Opaque 1.0.3.5
  */
 class greyopaque_server {
-	function get($key, $default = null) {
+	static function get($key, $default = null) {
 		if(empty($key)) {
 			return $_SERVER;
 		}
@@ -212,7 +212,7 @@ class greyopaque_server {
  * @since Grey Opaque 1.1.0
  */
 class greyopaque_string {
-	function string_to_lower($var_sString = '') {
+	static function string_to_lower($var_sString = '') {
 		if(!function_exists('mb_strtolower')) {
 			$var_sLowerString = mb_strtolower($var_sString, 'utf-8');
 		} else {
@@ -222,7 +222,7 @@ class greyopaque_string {
 		return $var_sLowerString;
 	}
 
-	function string_to_upper($var_sString = '') {
+	static function string_to_upper($var_sString = '') {
 		if(!function_exists('mb_strtoupper')) {
 			$var_sUpperString = mb_strtoupper($var_sString, 'utf-8');
 		} else {
