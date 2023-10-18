@@ -66,8 +66,6 @@ define('GREY_OPAQUE_THEME_AUTHOR', strip_tags($array_ThemeData['Author'])); // T
 define('GREY_OPAQUE_THEME_AUTHOR_URI', $array_ThemeData['AuthorURI']); // The Themes Author Page
 
 
-define('NULL', NULL); // because I can ... damnit !!!
-
 /**
  * Set the content width based on the theme's design and stylesheet.
  *
