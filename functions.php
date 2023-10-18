@@ -1250,20 +1250,11 @@ if(!function_exists('greyopaque_the_infobox')) {
  */
 if(!function_exists('greyopaque_escape_code_in_comment')) {
 	function greyopaque_escape_code_in_comment($content) {
-// 		$encoded = preg_replace_callback('/<code>(.*?)<\/code>/ims', create_function('$matches', '$matches[1] = preg_replace(array("/^[\r|\n]+/i", "/[\r|\n]+$/i"), "", $matches[1]); return "<code>" . htmlentities($matches[1]) . "</code>";'), $content);
-
-// 		if($encoded) {
-// 			return $encoded;
-// 		} else {
-// 			return $content;
-// 		}
-
 		return preg_replace_callback(
 				'#(<pre.*?>)(.*?)(</pre>)#imsu',
-				create_function(
-						'$i',
-						'return $i[1] . esc_html($i[2]) . $i[3];'
-				),
+				function($i) {
+                                    return $i[1] . esc_html($i[2]) . $i[3];
+				},
 				$content
 		);
 	}
@@ -1289,10 +1280,9 @@ if(!function_exists('greyopaque_pre_esc_html')) {
 	function greyopaque_pre_esc_html($content) {
 		return preg_replace_callback(
 				'#(<pre.*?>)(.*?)(</pre>)#imsu',
-				create_function(
-						'$i',
-						'return $i[1] . esc_html($i[2]) . $i[3];'
-				),
+				function($i) {
+                                    return $i[1] . esc_html($i[2]) . $i[3];
+				},
 				$content
 		);
 	}
@@ -2064,7 +2054,7 @@ if(!function_exists('greyopaque_remove_wp_generator')) {
 		}
 
 		if(function_exists('the_generator')) {
-			add_filter('the_generator', create_function('$x', 'return;'));
+			add_filter('the_generator', function($x) { return; });
 		}
 	}
 }
@@ -2116,7 +2106,7 @@ if(!function_exists('greyopaque_set_favicon')) {
 	}
 
 	if(isset($array_GreyOpaqueOptions['favicon-link']) && $array_GreyOpaqueOptions['favicon-link'] != '') {
-		add_action('wp_head', create_function('', 'return greyopaque_set_favicon("' . $array_GreyOpaqueOptions['favicon-link'] . '");'));
+		add_action('wp_head', function() { return greyopaque_set_favicon($array_GreyOpaqueOptions['favicon-link']); });
 	}
 }
 
@@ -2131,7 +2121,7 @@ if(!function_exists('greyopaque_set_commentform_text_before')) {
 	}
 
 	if(isset($array_GreyOpaqueOptions['commentform-text-before']) && $array_GreyOpaqueOptions['commentform-text-before'] != '') {
-		add_action('comment_form_before_fields', create_function('', 'return greyopaque_set_commentform_text_before("' . (string) wp_filter_post_kses($array_GreyOpaqueOptions['commentform-text-before']) . '");'));
+		add_action('comment_form_before_fields', function() { return greyopaque_set_commentform_text_before((string) wp_filter_post_kses($array_GreyOpaqueOptions['commentform-text-before'])); });
 	}
 }
 
