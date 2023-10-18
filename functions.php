@@ -2504,7 +2504,7 @@ if(!function_exists('greyopaque_blog_copyright')) {
 		 *
 		 * @since Grey Opaque 1.0.1
 		 */
-		$obj_PostDatetimes = $wpdb->get_row($wpdb->prepare("SELECT YEAR(min(post_date_gmt)) AS firstyear FROM $wpdb->posts WHERE post_date_gmt > %s AND post_status = 'publish';", '1970'));
+		$obj_PostDatetimes = $wpdb->get_row($wpdb->prepare("SELECT YEAR(min(post_date_gmt)) AS firstyear FROM $wpdb->posts WHERE post_date_gmt > %s AND post_status = 'publish';", '1970-01-01'));
 		if ($obj_PostDatetimes) {
 			$var_sYearFirstPost = $obj_PostDatetimes->firstyear;
 		}
